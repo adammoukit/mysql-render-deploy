@@ -6,9 +6,9 @@ ENV MYSQL_DATABASE=ecommerce
 ENV MYSQL_USER=app_user
 ENV MYSQL_PASSWORD=Strong!AppPassword123
 
-# Installer les timezones
-RUN apt-get update && apt-get install -y tzdata && \
-    rm -rf /var/lib/apt/lists/*
+# # Installer les timezones
+# RUN apt-get update && apt-get install -y tzdata && \
+#     rm -rf /var/lib/apt/lists/*
 
 # Copier le script SQL
 COPY ./init.sql /docker-entrypoint-initdb.d/
