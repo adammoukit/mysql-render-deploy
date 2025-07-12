@@ -17,4 +17,8 @@ COPY ./init.sql /docker-entrypoint-initdb.d/
 EXPOSE 3306
 
 # Solution d'authentification
-CMD ["mysqld", "--default-authentication-plugin=mysql_native_password"]
+# Solution optimisée pour Render
+CMD ["mysqld", 
+     "--default-authentication-plugin=mysql_native_password",
+     "--skip-host-cache",
+     "--pid-file=/tmp/mysql.pid"] 
