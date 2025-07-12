@@ -1,16 +1,20 @@
 FROM mysql:8.0
 
-# Définir le mot de passe root
+# Définir les variables OBLIGATOIRES pour l'initialisation
 ENV MYSQL_ROOT_PASSWORD=user-moukit
-
-# Créer la base de données
 ENV MYSQL_DATABASE=ecommerce
+ENV MYSQL_USER=app_user
+ENV MYSQL_PASSWORD=Strong!AppPassword123
 
-# Copier le script SQL d'initialisation
+# Installer les timezones
+RUN apt-get update && apt-get install -y tzdata && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copier le script SQL
 COPY ./init.sql /docker-entrypoint-initdb.d/
 
-# Exposer le port MySQL
+# Exposer le port
 EXPOSE 3306
 
-# Optimisations pour Render
+# Solution d'authentification
 CMD ["mysqld", "--default-authentication-plugin=mysql_native_password"]
